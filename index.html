@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The American College | Student Portal</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        :root {
+            --ac-blue: #004AAD; 
+            --ac-sidebar-hover: #003d82;
+        }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f4f7f6;
+            margin: 0;
+            overflow: hidden;
+        }
+        .sidebar {
+            background-color: var(--ac-blue);
+            height: 100vh;
+            color: white;
+        }
+        .sidebar-header {
+            border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+            padding: 25px 0;
+            text-align: center;
+        }
+        .college-logo {
+            width: 70px;
+            height: 70px;
+            background-color: white;
+            border-radius: 50%;
+            margin: 0 auto 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+        .nav-item {
+            padding: 12px 25px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            cursor: pointer;
+            transition: background 0.2s;
+            font-size: 14px;
+        }
+        .nav-item:hover { background-color: var(--ac-sidebar-hover); }
+        
+        .sub-nav-item {
+            padding: 10px 45px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            font-size: 13px;
+            color: rgba(255, 255, 255, 0.7);
+            cursor: pointer;
+        }
+        .sub-nav-item:hover, .sub-nav-item.active {
+            color: white;
+            background-color: rgba(255, 255, 255, 0.1);
+        }
+
+        .content-area {
+            background-color: white;
+            flex-grow: 1;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+        .section-header {
+            padding: 25px 40px;
+            border-bottom: 1px solid #f0f0f0;
+            background: white;
+            flex-shrink: 0;
+        }
+        .iframe-container {
+            flex-grow: 1;
+            width: 100%;
+            border: none;
+        }
+        .view-section { display: none; height: 100%; }
+        .view-section.active { display: block; }
+    </style>
+</head>
+<body class="flex">
+
+    <!-- Sidebar (Strict AC Blue) -->
+    <aside class="sidebar w-64 flex-shrink-0">
+        <div class="sidebar-header">
+            <div class="college-logo">
+                <i class="fas fa-university text-[#004AAD] text-3xl"></i>
+            </div>
+            <h2 class="font-bold text-sm px-2">Dharan Abishek L</h2>
+            <p class="text-[10px] text-blue-200 mt-1 uppercase tracking-tighter">MCA - First Year</p>
+        </div>
+
+        <nav class="mt-4">
+            <div class="nav-item">
+                <span><i class="fas fa-th-large mr-3 w-4"></i> Dashboard</span>
+            </div>
+            <div class="nav-item bg-white/10">
+                <span><i class="fas fa-briefcase mr-3 w-4"></i> Recruitment</span>
+                <i class="fas fa-chevron-down text-[10px]"></i>
+            </div>
+            
+            <div onclick="showView('history')" id="btn-history" class="sub-nav-item active">
+                <span>History</span> <i class="fas fa-chevron-right text-[8px]"></i>
+            </div>
+            <div onclick="showView('ongoing')" id="btn-ongoing" class="sub-nav-item">
+                <span>Ongoing</span> <i class="fas fa-chevron-right text-[8px]"></i>
+            </div>
+            <div onclick="showView('upcoming')" id="btn-upcoming" class="sub-nav-item">
+                <span>Upcoming</span> <i class="fas fa-chevron-right text-[8px]"></i>
+            </div>
+            
+
+            <div class="nav-item mt-2">
+                <span><i class="fas fa-user-edit mr-3 w-4"></i> Profile</span>
+            </div>
+            <div class="nav-item">
+                <span><i class="fas fa-sign-out-alt mr-3 w-4"></i> Logout</span>
+            </div>
+        </nav>
+    </aside>
+
+    <!-- Main Content Area -->
+    <main class="content-area">
+        <div class="section-header">
+            <h1 id="view-title" class="text-2xl font-bold text-slate-800">History :</h1>
+        </div>
+
+        <!-- iframe views for dynamic content -->
+        <div id="view-history" class="view-section active">
+            <iframe src="history.html" class="iframe-container"></iframe>
+        </div>
+
+        <div id="view-ongoing" class="view-section">
+            <iframe src="ongoing.html" class="iframe-container"></iframe>
+        </div>
+
+        <div id="view-upcoming" class="view-section">
+            <iframe src="upcoming.html" class="iframe-container"></iframe>
+        </div>
+
+        <!-- Inline Content (Fallback) -->
+        <div id="view-wifi" class="view-section">
+            <div class="p-10">
+                <div class="bg-white border border-slate-200 rounded-xl p-8 shadow-sm max-w-3xl">
+                    <div class="flex items-center gap-4 mb-6">
+                        <div class="bg-blue-50 p-4 rounded-full text-[#004AAD] text-2xl">
+                            <i class="fas fa-wifi"></i>
+                        </div>
+                        <h2 class="text-xl font-bold text-slate-800">Understanding Wi-Fi Technology</h2>
+                    </div>
+                    <p class="text-slate-600 text-justify">
+                        Wi-Fi allows devices to connect wirelessly using radio waves (2.4 GHz and 5 GHz). Modern Wi-Fi 6 offers increased speeds and better security, serving as the backbone for modern digital communication.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        function showView(view) {
+            // Hide all sections
+            document.querySelectorAll('.view-section').forEach(s => s.classList.remove('active'));
+            document.querySelectorAll('.sub-nav-item').forEach(i => i.classList.remove('active'));
+            
+            // Show selected section
+            document.getElementById('view-' + view).classList.add('active');
+            document.getElementById('btn-' + view).classList.add('active');
+            
+            // Update Title
+            const titles = {
+                'history': 'History :',
+                'ongoing': 'Ongoing Recruitment :',
+                'upcoming': 'Upcoming Drives :',
+                'wifi': 'Technology Insight :'
+            };
+            document.getElementById('view-title').innerText = titles[view];
+        }
+    </script>
+</body>
+</html>
