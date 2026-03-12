@@ -16,7 +16,7 @@ The system manages:
 
 # 🗄️ Database Overview
 
-Database Name: if0_41372192_placement
+Database Name: placement
 
 ```
 
