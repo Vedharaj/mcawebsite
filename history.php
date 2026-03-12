@@ -1,5 +1,8 @@
 <?php
-// Recruitment History UI Page
+include "data/history_data.php";
+
+$student_id = 1; // Replace with dynamic student ID as needed
+$results = getHistoryData($conn, $student_id);
 ?>
 
 <!DOCTYPE html>
@@ -18,21 +21,7 @@
 <body class="bg-slate-100 min-h-screen">
 
 <!-- Navbar -->
-<nav class="bg-blue-900 text-white px-8 py-4 shadow">
-<div class="flex justify-between items-center">
-<h1 class="text-xl font-bold">
-<i class="fa-solid fa-graduation-cap mr-2"></i>
-MCA Department
-</h1>
-
-<ul class="flex gap-6 text-sm">
-<li class="hover:text-gray-200 cursor-pointer">Home</li>
-<li class="hover:text-gray-200 cursor-pointer">About</li>
-<li class="hover:text-gray-200 cursor-pointer">History</li>
-<li class="hover:text-gray-200 cursor-pointer">Contact</li>
-</ul>
-</div>
-</nav>
+<?php include "components/navbar.php"; ?>
 
 
 <!-- Page Title -->
@@ -60,51 +49,30 @@ Recruitment History
 </thead>
 
 <tbody class="text-slate-700">
-
+<?php $sno = 1; ?>
+<?php while ($row = mysqli_fetch_assoc($results)) { ?>
 <tr class="border-b hover:bg-slate-50 transition">
-<td class="px-6 py-4">1</td>
+<td class="px-6 py-4"><?php echo $sno++; ?></td>
 
 <td class="px-6 py-4 font-semibold text-blue-900">
-TCS (Tata Consultancy Services)
+<?php echo $row['company_name']; ?>
 </td>
 
 <td class="px-6 py-4">
-NQT - Ninja Developer
+<?php echo $row['Role']; ?>
 </td>
 
 <td class="px-6 py-4 text-xs">
-15 Sept 2024
+<?php echo $row['application_date']; ?>
 </td>
 
 <td class="px-6 py-4">
 <span class="px-3 py-1 bg-blue-100 text-blue-700 rounded text-xs font-bold uppercase">
-Applied
+<?php echo $row['status']; ?>
 </span>
 </td>
 </tr>
-
-
-<tr class="border-b hover:bg-slate-50 transition">
-<td class="px-6 py-4">2</td>
-
-<td class="px-6 py-4 font-semibold text-blue-900">
-Cognizant (CTS)
-</td>
-
-<td class="px-6 py-4">
-Programmer Analyst Trainee
-</td>
-
-<td class="px-6 py-4 text-xs">
-02 Aug 2024
-</td>
-
-<td class="px-6 py-4">
-<span class="px-3 py-1 bg-red-100 text-red-700 rounded text-xs font-bold uppercase">
-Not Shortlisted
-</span>
-</td>
-</tr>
+<?php } ?>
 
 </tbody>
 </table>
